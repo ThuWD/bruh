@@ -1,2 +1,1 @@
-# bruh
-bruuuuuuuuuuuuuuuuuh
+# Just run the code dude
