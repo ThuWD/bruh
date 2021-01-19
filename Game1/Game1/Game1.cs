@@ -13,6 +13,8 @@ namespace Game1
 
         float guyspeed;
         Vector2 guypos;
+
+        Vector2 bgpos;
         Texture2D guytexture;
         Texture2D guy;
         Texture2D bg; 
@@ -34,9 +36,10 @@ namespace Game1
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.IsFullScreen = true;
             _graphics.ApplyChanges();
-            guypos = new Vector2(_graphics.PreferredBackBufferWidth / 2,
-                _graphics.PreferredBackBufferHeight / 2);
+            guypos = new Vector2(480, 120);
             guyspeed = 200f;
+            bgpos = new Vector2(_graphics.PreferredBackBufferWidth / 2,
+                _graphics.PreferredBackBufferHeight / 2);
             base.Initialize();
         }
 
@@ -55,9 +58,16 @@ namespace Game1
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            bool go = true;
             // TODO: Add your update logic here
             var kstate = Keyboard.GetState();
+
+            if (go)
+            {
+                bgpos.X -= 500f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                
+            }
+
             if (kstate.IsKeyDown(Keys.Up))
                 guypos.Y -= guyspeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -92,7 +102,7 @@ namespace Game1
             beegee = new SpriteBatch(GraphicsDevice);
             beegee.Begin();
             beegee.Draw(bg,
-    Vector2.Zero,
+    bgpos,
     Color.White);
             beegee.End();
             _spriteBatch = new SpriteBatch(GraphicsDevice);
